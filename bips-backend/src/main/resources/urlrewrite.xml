@@ -1,0 +1,26 @@
+<urlrewrite>
+    <rule>
+        <note>
+            Forward all React static assets to webjar
+        </note>
+        <from>^/ui/static/(.*)$</from>
+        <to type="forward">/webjars/static/$1</to>
+    </rule>
+
+    <rule>
+        <note>
+            Forward all React assets outside static folder to webjar
+        </note>
+        <from>^/ui/(manifest\.json|asset-manifest\.json|favicon\.ico|.+\.png|.+\.js|.+\.txt).*$</from>
+        <to type="forward">/webjars/$1</to>
+    </rule>
+
+    <rule>
+        <note>
+            Forward all React Router paths to index.html inside webjar
+        </note>
+        <from>^/ui/?(.*)</from>
+        <to type="forward">/webjars/index.html</to>
+    </rule>
+
+</urlrewrite>

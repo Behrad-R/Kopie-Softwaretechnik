@@ -1,0 +1,49 @@
+spring:
+  jpa:
+    database: h2
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:h2:file:~/bips
+    driverClassName: org.h2.Driver
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 25MB
+
+keycloak:
+  realm: bips
+  auth-server-url: http://localhost:8180/auth
+  resource: bips-login
+  public-client: true
+  principal-attribute: preferred_username
+  enabled: true
+
+logging.level:
+  de.eightgile.bips: DEBUG
+  org.keycloak: DEBUG
+
+
+
+---
+spring:
+  profiles: docker
+#  datasource:
+#    url: ${DB_CONNECTION}
+#    driverClassName: ${DB_DRIVER}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#  jpa:
+#    database: ${DB_DIALECT}
+
+keycloak:
+  auth-server-url: ${KEYCLOAK_URL}
+
+
+---
+spring:
+  profiles: dev_applicant, dev_admission_officer
+
+keycloak:
+  enabled: false
